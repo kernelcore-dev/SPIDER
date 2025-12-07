@@ -1,128 +1,126 @@
 <div align="center">
 
-# 🕷️ **SPIDER Language (SP)**  
-### *The Better Way to Hack.*
+# SPIDER Language (SP)  
+### The Better Way to Hack
 
 <img src="https://dummyimage.com/800x200/000/fff&text=SPIDER+LANGUAGE" width="100%">
 
-**Lightweight. Fast. Security-Focused. Built for Red Teaming.**
-
-![Stars](https://img.shields.io/github/stars/your/repo?style=for-the-badge&color=black)
-![Issues](https://img.shields.io/github/issues/your/repo?style=for-the-badge&color=white)
+![Stars](https://img.shields.io/github/stars/kernelcore-dev/SPIDER?style=for-the-badge&color=black)
+![Issues](https://img.shields.io/github/issues/kernelcore-dev/SPIDER?style=for-the-badge&color=white)
 ![License](https://img.shields.io/badge/license-MIT-black?style=for-the-badge)
 
-**Discord:** https://discord.gg/yourserver
+**Repository:**  
+https://github.com/kernelcore-dev/SPIDER  
+
+**Linux Runtime:**  
+https://github.com/kernelcore-dev/SPIDER/blob/main/sp  
+
+**Windows Runtime:**  
+https://github.com/kernelcore-dev/SPIDER/blob/main/sp.exe  
 
 </div>
 
 ---
 
-# 🧩 What is SPIDER?
+# Overview
 
-**SPIDER (SP)** is a **security-oriented programming language** written in **Rust** with a **C backend compiler**.
+SPIDER (SP) is a security-focused programming language designed for red teaming, exploit development, penetration testing, and fast automation tasks.  
+It is written in Rust and compiles to C before generating a native executable.
 
-It was designed specifically for:
+SPIDER includes:
 
-- Red teaming  
-- Penetration testing  
-- Embedded scripting  
-- Rapid exploit prototyping  
-- Automation  
-- Network tooling  
+- A complete lexer, parser, interpreter, and compiler
+- A custom interactive terminal
+- Over 100 security-related built-in functions
+- A red-team–oriented syntax and keyword set
 
-SPIDER includes **100+ built-in security functions**, supports **interpreted or compiled execution**, and features an extremely flexible syntax inspired by **Rust, C, and custom DSL design**.
-
----
-
-# ✨ Features
-
-### 🔹 **Full Toolchain Included**
-- **Lexer** (`lexer.rs`) – Tokenizes advanced SP syntax  
-- **Parser** (`parser.rs`) – Builds a rich AST with support for structs, enums, lambdas, pattern matching, loops, etc.  
-- **Interpreter** (`interpreter.rs`) – Executes SP code dynamically  
-- **Native Compiler** (`compiler.rs`) – Converts AST → C → compiled executable via gcc/clang  
-- **CLI Runtime** (`main.rs`) – The `sp` command (run, compile, check, terminal)
+SPIDER programs use the `.spdi` extension.
 
 ---
 
-# 🛠️ Built-In Security & Networking Keywords
+# Features
 
-From the lexer:
+### Full Toolchain
+- **lexer.rs** — Tokenizes SPIDER source code  
+- **parser.rs** — Produces a structured AST  
+- **interpreter.rs** — Executes SPIDER programs dynamically  
+- **compiler.rs** — Converts AST → C → native machine code  
+- **main.rs** — Provides the CLI and terminal environment  
 
-- `scan`
-- `exploit`
-- `payload`
-- `socket`
-- `thread`
-- `process`
-- `memory`
-- `inject`
-- `hook`
-- `packet`
-- `encrypt`
-- `decrypt`
-- `hash`
-- `shell`
-- `spawn`
+### Security-Oriented Keywords
+SPIDER includes specialized keywords for offensive tooling:
 
-SPIDER is **natively aware** of offensive-security workflows.
+`scan`, `exploit`, `payload`, `socket`, `thread`, `process`, `memory`,  
+`inject`, `hook`, `packet`, `encrypt`, `decrypt`, `hash`, `shell`, `spawn`
 
----
-
-# 📦 File Extension
-
-SPIDER programs use:
-
-```
-.spdi
-```
+### Language Capabilities
+- Variables, functions, structs, enums, type aliases  
+- Pattern matching, lambda expressions, ternary expressions  
+- Arrays, maps, struct literals  
+- File I/O, HTTP/HTTPS utilities, directory operations  
+- Error handling via `try` / `catch`  
+- While loops, for loops, ranges, infinite loops  
 
 ---
 
-# 🚀 Terminal Usage
+# Runtime Binaries
 
-```
-sp terminal
-```
+### Linux (tested)
+`sp` — ELF binary  
+Runs on most x86_64 Linux systems.  
+macOS **is not guaranteed** to work via the Linux binary and may require manual build.
 
-SPIDER has a custom interactive REPL with:
+### Windows
+`sp.exe` — Native Windows PE executable  
 
-- ASCII art banner  
-- Root mode flag (`--r`)  
-- Colored output  
-- All SPIDER commands accessible directly  
-
----
-
-# 🔧 CLI Commands
-
-```
-sp run <file.spdi> [-d]
-sp compile <file.spdi>
-sp check <file.spdi>
-sp terminal [--r]
-```
-
-### Modes:
-- `run` → interpret  
-- `compile` → generate native C binary  
-- `check` → syntax analysis only  
-- `terminal` → interactive shell  
+### From Source
+You may also build SPIDER manually using Rust and Cargo (see below).
 
 ---
 
-# 🧠 Syntax Examples
+# CLI Usage
+
+SPIDER provides a command-line runtime with several modes:
+
+```
+sp terminal [--r]       Start interactive terminal (--r enables root mode)
+sp run <file.spdi> [-d] Execute a SPIDER script (optional debug output)
+sp compile <file.spdi>  Compile to a native executable
+sp check <file.spdi>    Syntax check without execution
+```
+
+---
+
+# Getting Started
+
+### Build From Source
+
+```
+git clone https://github.com/kernelcore-dev/SPIDER
+cd SPIDER
+cargo build --release
+```
+
+Resulting binary will be located in:
+
+```
+target/release/sp
+```
+
+---
+
+# Syntax Examples
 
 ### Variables
 ```spider
-let x = 10;
-mut y = 20;
+let a = 10;
+mut b = 20;
 ```
 
 ### Functions
 ```spider
-func add(a: int, b: int) -> int {
-    return a + b;
+func add(x: int, y: int) -> int {
+    return x + y;
 }
 ```
 
@@ -134,123 +132,105 @@ struct User {
 }
 
 let u = User {
-    name: "kcdev",
+    name: "kernel",
     age: 17
 };
 ```
 
-### Arrays & Maps
+### Maps and Arrays
 ```spider
 let arr = [1, 2, 3];
-let m = { "ip": "127.0.0.1", "port": 8080 };
+let config = { "mode": "test", "level": 5 };
 ```
 
-### Networking example
+### Networking
 ```spider
 let body = https_get("https://example.com");
 print(body);
 ```
 
-### Try/Catch
+### Error Handling
 ```spider
 try {
     risky();
-} catch err {
-    print("Error: " + err);
+} catch e {
+    print("Error: " + e);
 }
 ```
 
 ### Lambdas
 ```spider
-let f = (x) => x * 2;
+let f = (x) => x * 3;
 ```
 
 ---
 
-# ⚙️ Compilation Pipeline
+# Compilation Pipeline
 
-SPIDER uses a **multi-stage build**:
+SPIDER uses a multi-stage compilation flow:
 
-1. Lexer → tokens  
-2. Parser → AST  
-3. AST → generated C source (`program.c`)  
-4. gcc/clang → native binary (`program.exe` or `program`)  
-5. Temporary C file auto-removed  
+1. Source → tokens (lexer)  
+2. Tokens → AST (parser)  
+3. AST → generated C code  
+4. C → native executable via gcc/clang  
+5. Temporary `.c` file is removed  
 
-Snippet from compiler backend showing C type mapping:  
-*(From compiler.rs)*  
+Internal C type mapping includes:
+
 ```
-int → int64_t
-uint → uint64_t
-float → double
-bool → bool
-str → char*
-ptr → void*
+int   -> int64_t
+uint  -> uint64_t
+float -> double
+bool  -> bool
+str   -> char*
+ptr   -> void*
 ```
 
 ---
 
-# 📚 Interpreter Features
+# Interpreter Capabilities
 
 The interpreter supports:
 
-- Struct/object field access  
-- Function calls + method calls  
-- Arrays & maps  
-- Binary/unary ops  
-- Ternary expressions  
-- Pattern-matching  
-- Looping: `for`, `while`, `loop`, `do while`  
-- `break` / `continue`  
-- try/catch  
-- Built-in filesystem & HTTP utilities (`https_get`, `https_post`, `write_file`, `list_dir`, etc.)  
+- Structs, maps, arrays  
+- Field/method access  
+- Binary and unary operations  
+- Ternary operators  
+- Pattern matching  
+- Loops with break/continue  
+- `for` loops over ranges and arrays  
+- Built-in filesystem functions  
+- HTTP/HTTPS GET and POST  
+- JSON handling  
 
 ---
 
-# 🧵 Example Program
+# Example Program
 
 ```spider
-func hello(name: str) -> void {
+func greet(name: str) -> void {
     print("Hello, " + name);
 }
 
-hello("World");
+greet("World");
 ```
 
 ---
 
-# 🔨 Build SPIDER From Source
+# Contributing
 
-```
-git clone https://github.com/your/repo
-cd spider
-cargo build --release
-```
-
-Run SPIDER:
-
-```
-./target/release/sp terminal
-```
+Contributions are welcome.  
+SPIDER is under active development and expanding toward future versions with improved performance, additional security functions, and enhanced syntax.
 
 ---
 
-# ⭐ Contributing
-
-PRs are welcome!  
-SPIDER is actively evolving toward **v3.1** with more security tooling and speedups.
-
----
-
-# 📜 License
+# License
 
 MIT License  
-Free for personal and commercial use.
+Free for both personal and commercial use.
 
 ---
 
 <div align="center">
-  
-### 🕷️ **SPIDER — The Better Way to Hack.**
-
+SPIDER Language — The Better Way to Hack
 </div>
